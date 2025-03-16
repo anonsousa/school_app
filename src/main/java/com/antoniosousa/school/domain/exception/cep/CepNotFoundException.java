@@ -1,4 +1,4 @@
-package com.antoniosousa.school.domain.exception;
+package com.antoniosousa.school.domain.exception.cep;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
