@@ -13,6 +13,7 @@ This project aims to develop a **School Management System** using Java and Sprin
 - 🔥 **Lombok**
 - 🛢 **PostgreSQL**
 - 🐳 **Docker & Docker Compose**
+- 📖 **Swagger/OpenAPI**
 
 ---
 
@@ -40,7 +41,10 @@ Make sure you have installed:
    ```
    http://localhost:8080
    ```
-
+4️⃣ Access the Swagger UI for API documentation:
+   ```
+   http://localhost:8080/swagger-ui.html
+   ```
 
 ## 🤝 Contribution
 
@@ -50,4 +54,5 @@ Feel free to **open issues** and **submit pull requests** to improve the project
 
 ## 📜 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
+
