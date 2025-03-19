@@ -16,6 +16,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,23 +33,31 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @Column(nullable = false, length = 50)
     private String firstName;
+
     @Column(nullable = false, length = 50)
     private String lastName;
+
     private String fullName;
+
     @Column(nullable = false, unique = true, length = 18)
+    @Pattern(regexp = "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})$", message = "Invalid CPF format. Correct format: XXX.XXX.XXX-XX")
     private String cpf;
+
     @Column(nullable = false, unique = true, length = 60)
     private String email;
+
+    @Column(nullable = false)
     private LocalDate birthDate;
+
     @Column(nullable = false, unique = true, length = 18)
     private String phone;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-
 
     private LocalDate hireDate;
 
@@ -65,10 +74,6 @@ public class Teacher {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-
-
-
 
 
 
