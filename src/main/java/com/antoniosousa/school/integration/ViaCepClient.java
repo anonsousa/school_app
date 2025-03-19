@@ -1,6 +1,6 @@
 package com.antoniosousa.school.integration;
 
-import com.antoniosousa.school.domain.dto.ViaCepResponseDto;
+import com.antoniosousa.school.domain.dto.cep.ViaCepResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ViaCepClient {
 
     @GetMapping("/{cep}/json/")
-    ViaCepResponseDto viewCep(@PathVariable("cep") String cep);
+    ViaCepResponseDTO viewCep(@PathVariable("cep") String cep);
 }
