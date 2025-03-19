@@ -1,7 +1,7 @@
 package com.antoniosousa.school.service;
 
 
-import com.antoniosousa.school.domain.dto.ViaCepResponseDto;
+import com.antoniosousa.school.domain.dto.cep.ViaCepResponseDTO;
 import com.antoniosousa.school.domain.exception.cep.CepNotFoundException;
 import com.antoniosousa.school.domain.exception.cep.InvalidCepFormatException;
 import com.antoniosousa.school.domain.service.ViaCepService;
@@ -26,14 +26,14 @@ public class ViaCepServiceTest {
     @InjectMocks
     private ViaCepService viaCepService;
 
-    private ViaCepResponseDto viaCepResponseDto;
+    private ViaCepResponseDTO viaCepResponseDto;
     private final String validCep = "01001000";
     private final String invalidCep = "00000000";
     private final List<String> invalidCeps = List.of("0000", "1234-567", "ABC12345", "1234567");
 
     @BeforeEach
     void setUp() {
-        viaCepResponseDto = new ViaCepResponseDto(
+        viaCepResponseDto = new ViaCepResponseDTO(
                 "Praça da Sé",
                 "São Paulo",
                 "São Paulo");
@@ -44,7 +44,7 @@ public class ViaCepServiceTest {
 
         Mockito.when(viaCepClient.viewCep(validCep)).thenReturn(viaCepResponseDto);
 
-        ViaCepResponseDto response = viaCepService.viewCep(validCep);
+        ViaCepResponseDTO response = viaCepService.viewCep(validCep);
 
 
         Assertions.assertNotNull(response);

@@ -1,6 +1,6 @@
 package com.antoniosousa.school.controller;
 
-import com.antoniosousa.school.domain.dto.ViaCepResponseDto;
+import com.antoniosousa.school.domain.dto.cep.ViaCepResponseDTO;
 import com.antoniosousa.school.domain.service.ViaCepService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,11 +25,11 @@ public class ViaCepControllerTest {
     @Test
     void shouldReturnViaCepResponseDtoWhenValidCep() {
         String cep = "01001000";
-        ViaCepResponseDto expectedResponse = new ViaCepResponseDto("Praça da Sé", "São Paulo", "São Paulo");
+        ViaCepResponseDTO expectedResponse = new ViaCepResponseDTO("Praça da Sé", "São Paulo", "São Paulo");
 
         when(viaCepService.viewCep(cep)).thenReturn(expectedResponse);
 
-        ResponseEntity<ViaCepResponseDto> response = viaCepController.viewCep(cep);
+        ResponseEntity<ViaCepResponseDTO> response = viaCepController.viewCep(cep);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());

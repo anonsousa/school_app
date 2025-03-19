@@ -1,6 +1,6 @@
 package com.antoniosousa.school.domain.service;
 
-import com.antoniosousa.school.domain.dto.ViaCepResponseDto;
+import com.antoniosousa.school.domain.dto.cep.ViaCepResponseDTO;
 import com.antoniosousa.school.domain.exception.cep.CepNotFoundException;
 import com.antoniosousa.school.domain.exception.cep.InvalidCepFormatException;
 import com.antoniosousa.school.integration.ViaCepClient;
@@ -15,10 +15,11 @@ public class ViaCepService {
         this.viaCepClient = viaCepClient;
     }
 
-    public ViaCepResponseDto viewCep(String cep) {
+    public ViaCepResponseDTO viewCep(String cep) {
         checkCepFormat(cep);
 
-        ViaCepResponseDto response = viaCepClient.viewCep(cep);
+        ViaCepResponseDTO response = viaCepClient.viewCep(cep);
+
         if (response == null || (response.city() == null && response.state() == null)) {
             throw new CepNotFoundException("CEP not found: " + cep);
         }

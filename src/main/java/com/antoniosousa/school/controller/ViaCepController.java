@@ -1,6 +1,6 @@
 package com.antoniosousa.school.controller;
 
-import com.antoniosousa.school.domain.dto.ViaCepResponseDto;
+import com.antoniosousa.school.domain.dto.cep.ViaCepResponseDTO;
 import com.antoniosousa.school.domain.service.ViaCepService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +28,7 @@ public class ViaCepController {
             @ApiResponse(responseCode = "404", description = "Bad Request (as invalid CEP format)")
     })
     @GetMapping("/{cep}")
-    public ResponseEntity<ViaCepResponseDto> viewCep(@PathVariable("cep") String cep) {
+    public ResponseEntity<ViaCepResponseDTO> viewCep(@PathVariable("cep") String cep) {
         return ResponseEntity.ok().body(viaCepService.viewCep(cep));
     }
 }
