@@ -83,6 +83,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- WebList Pagination-->
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+
 		<!-- Tests-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

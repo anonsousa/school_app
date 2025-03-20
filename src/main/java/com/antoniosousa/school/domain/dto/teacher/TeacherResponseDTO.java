@@ -4,6 +4,7 @@ import com.antoniosousa.school.domain.enums.ContractType;
 import com.antoniosousa.school.domain.enums.EmployeeStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
