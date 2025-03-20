@@ -8,6 +8,8 @@ import com.antoniosousa.school.domain.mapper.TeacherMapper;
 import com.antoniosousa.school.domain.model.Teacher;
 import com.antoniosousa.school.domain.repository.TeacherRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,6 +38,11 @@ public class TeacherService {
         Teacher teacherEntity = teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundException(id));
         return teacherMapper.toDTO(teacherEntity);
+    }
+
+    public Page<TeacherResponseDTO> getAllActiveTeachers(Pageable pageable) {
+        Page<Teacher> teachers = teacherRepository.findAll(pageable);
+        return teachers.map(teacherMapper::toDTO);
     }
 
     @Transactional

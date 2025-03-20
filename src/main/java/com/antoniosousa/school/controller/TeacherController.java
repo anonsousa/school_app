@@ -4,6 +4,11 @@ import com.antoniosousa.school.domain.dto.teacher.TeacherRequestDTO;
 import com.antoniosousa.school.domain.dto.teacher.TeacherResponseDTO;
 import com.antoniosousa.school.domain.service.TeacherService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +27,12 @@ import java.net.URI;
 public class TeacherController {
 
     private final TeacherService teacherService;
+    private final PagedResourcesAssembler<TeacherResponseDTO> pagedResourcesAssembler;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService,
+                             PagedResourcesAssembler<TeacherResponseDTO> pagedResourcesAssembler) {
         this.teacherService = teacherService;
+        this.pagedResourcesAssembler = pagedResourcesAssembler;
     }
 
     @PostMapping
@@ -43,39 +51,28 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherResponseDTO> getTeacherById(
-            @PathVariable Long id,
-            UriComponentsBuilder uriBuilder) {
-
+    public ResponseEntity<TeacherResponseDTO> getTeacherById(@PathVariable Long id) {
         TeacherResponseDTO response = teacherService.getTeacherById(id);
+        return ResponseEntity.ok(response);
+    }
 
-        URI resourceLocation = uriBuilder
-                .path("/teacher/{id}")
-                .buildAndExpand(response.id())
-                .toUri();
+    @GetMapping
+    public ResponseEntity<PagedModel<EntityModel<TeacherResponseDTO>>> getActiveTeachers(Pageable pageable) {
+        Page<TeacherResponseDTO> teachers = teacherService.getAllActiveTeachers(pageable);
 
+        PagedModel<EntityModel<TeacherResponseDTO>> resources = pagedResourcesAssembler.toModel(teachers);
 
-        return ResponseEntity.ok()
-                .location(resourceLocation)
-                .body(response);
+        return ResponseEntity.ok(resources);
+
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<TeacherResponseDTO> updateTeacher(
             @PathVariable Long id,
-            @RequestBody @Valid TeacherRequestDTO teacherRequestDTO,
-            UriComponentsBuilder uriBuilder) {
+            @RequestBody @Valid TeacherRequestDTO teacherRequestDTO) {
 
         TeacherResponseDTO response = teacherService.updateTeacher(id, teacherRequestDTO);
-
-        URI resourceLocation = uriBuilder
-                .path("/teacher/{id}")
-                .buildAndExpand(response.id())
-                .toUri();
-
-        return ResponseEntity.ok()
-                .location(resourceLocation)
-                .body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
